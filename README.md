@@ -1,5 +1,3 @@
-# Confy Manager: TypeScript Configuration Manager
-
 ```
 
 
