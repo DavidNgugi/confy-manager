@@ -1,0 +1,30 @@
+{
+  "name": "confy-manager",
+  "version": "0.1.0",
+  "description": "A node configuration manager",
+  "author": "David Ngugi",
+  "keywords": [
+    "configurations",
+    "environment"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.664.0",
+    "@aws-sdk/types": "^3.664.0",
+    "aws-sdk": "^2.1691.0"
+  }
+}
