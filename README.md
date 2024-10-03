@@ -1,11 +1,13 @@
 # Confy Manager: TypeScript Configuration Manager
 
+```
 _____  ____  _   _ ______ __   __
  / ____|/ __ \| \ | |  ____\ \ / /
 | |    | |  | |  \| | |__   \ V / 
 | |    | |  | | . ` |  __|   > <  
 | |____| |__| | |\  | |     / . \ 
  \_____\____/|_| \_|_|    /_/ \_\
+```
 
 Confy Manager is a flexible and type-safe configuration management library for TypeScript projects. It supports environment variables, default values, and strong typing to make managing your application's configuration easy and reliable.
 
