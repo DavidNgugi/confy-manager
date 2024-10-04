@@ -36,4 +36,49 @@ describe('Field', () => {
     await field.initialize();
     expect(field.value).toBe(42);
   });
+
+  // Failure cases
+  test('should throw error when accessing value before initialization', () => {
+    const field = new Field('default', String, 'TEST_VAR');
+    expect(() => field.value).toThrow('Field has not been initialized. Call initialize() first.');
+  });
+
+  test('should throw error when parsing invalid number', async () => {
+    process.env.NUM_VAR = 'not a number';
+    const field = new Field(0, Number, 'NUM_VAR');
+    await expect(field.initialize()).rejects.toThrow('Invalid number value for NUM_VAR: not a number');
+  });
+
+  test('should use default value when env var is empty string', async () => {
+    process.env.TEST_VAR = '';
+    const field = new Field('default', String, 'TEST_VAR');
+    await field.initialize();
+    expect(field.value).toBe('default');
+  });
+
+  test('should throw error for unsupported field type', () => {
+    expect(() => new Field({}, Object as any, 'OBJ_VAR'))
+      .toThrow('Unsupported field type: Object');
+  });
+  
+  test('should handle undefined env var correctly', async () => {
+    delete process.env.TEST_VAR;
+    const field = new Field('default', String, 'TEST_VAR');
+    await field.initialize();
+    expect(field.value).toBe('default');
+  });
+
+  test('should parse "1" as true for boolean fields', async () => {
+    process.env.BOOL_VAR = '1';
+    const field = new Field(false, Boolean, 'BOOL_VAR');
+    await field.initialize();
+    expect(field.value).toBe(true);
+  });
+
+  test('should parse "0" as false for boolean fields', async () => {
+    process.env.BOOL_VAR = '0';
+    const field = new Field(true, Boolean, 'BOOL_VAR');
+    await field.initialize();
+    expect(field.value).toBe(false);
+  });
 });

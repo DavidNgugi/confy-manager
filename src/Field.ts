@@ -14,6 +14,9 @@ export class Field<T> {
       private awsSecretName?: string,
       awsCredentials?: AwsCredentialIdentity
     ) {
+      if (![String, Number, Boolean].includes(type)) {
+        throw new Error(`Unsupported field type: ${type.name}`);
+      }
       if (awsSecretName) {
         this.awsSecretsManager = AWSSecretsManager.getInstance(awsCredentials);
       }
@@ -32,7 +35,7 @@ export class Field<T> {
   
     private async getValue(): Promise<T> {
       const envValue = process.env[this.envVar];
-      if (envValue !== undefined) {
+      if (envValue !== undefined && envValue !== '') {
         return this.parseValue(envValue);
       }
   
